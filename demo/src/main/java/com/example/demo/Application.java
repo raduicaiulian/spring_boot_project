@@ -30,7 +30,7 @@ public class Application {
 		
 		boolean valid = s.addProduct(name, weight, price, description);
 		
-		if(valid == true)
+		if(valid != true)
 			return String.format("Produsul pe care încerci să îl inserei este invalid!", name);
 		return String.format("Produsul " + name + " a fost adăugat cu succes!");
 	}
