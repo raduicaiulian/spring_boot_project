@@ -4,7 +4,6 @@ import java.util.List;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 ///http://localhost:8080/add-product?name=pantofi&weight=2&price=10&description=O%20pereche%20de%20pantofi%20portocali%20de%20excep%C5%A3ie
@@ -20,7 +19,7 @@ public class Application {
 	
 	@GetMapping("/")
     public String root() {
-		System.out.println("you are actualy in the store");	
+		//logger.info("you are actualy in the store");
 		return String.format("Welcome to %s !", s.getName());
     }
 

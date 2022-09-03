@@ -9,13 +9,15 @@ public class Store {
 	public Store(String name) {
 		this.name = name;
 	}
-
+ 
+	
+	//isBlank() - function introduced in java 11 to check if a string is blank 
 	public boolean addProduct(String name2, float weight, float price, String description) {
 		Product p = new Product(name2, weight, price, description);
-		if(p.getName().length() > 0 &&
+		if(!p.getName().isBlank() &&
 		p.getPrice()>0f &&
 		p.getWeight()>0f &&
-		p.getDescription().length()>0){
+		!p.getDescription().isBlank()){
 			products.add(p);
 			return true;
 		}
