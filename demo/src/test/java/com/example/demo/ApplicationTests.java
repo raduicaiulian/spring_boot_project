@@ -1,6 +1,9 @@
 package com.example.demo;
 
+import org.junit.jupiter.api.MethodOrderer;
+import org.junit.jupiter.api.Order;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.TestMethodOrder;
 import org.springframework.test.web.servlet.MockMvc;
 import org.springframework.test.web.servlet.ResultActions;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -17,7 +20,7 @@ import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.
 
 @SpringBootTest
 @AutoConfigureMockMvc
-
+@TestMethodOrder(MethodOrderer.OrderAnnotation.class)
 class ApplicationTests {
 	@Autowired
 	private MockMvc mockMvc;
@@ -38,6 +41,7 @@ class ApplicationTests {
 	}
 	
 	@Test
+	@Order(1)
 	@WithMockUser
 	void add_product_and_list_products() throws Exception{
 		
@@ -53,6 +57,7 @@ class ApplicationTests {
 	}
 	
 	@Test
+	@Order(2)
 	@WithMockUser
 	void find_product() throws Exception{
 		addProduct("geanta",1.0f,100.0f,"Geanta abibas!")
@@ -67,6 +72,7 @@ class ApplicationTests {
 	}
 	
 	@Test
+	@Order(3)
 	@WithMockUser(roles= {"ADMIN"})
 	void remove_product() throws Exception{
 		addProduct("geanta",1.0f,100.0f,"Geanta abibas!")
@@ -78,7 +84,8 @@ class ApplicationTests {
 	}
 	
 	@Test
-	@WithMockUser(roles= {"ADMIN", "USER"})
+	@Order(4)
+	@WithMockUser(roles= {"ADMIN"})
 	void change_price() throws Exception{
 		addProduct("geanta",1.0f,100.0f,"Geanta abibas!")
 			.andExpect(content().string(containsString("Produsul geanta a fost adăugat cu succes!")));
@@ -92,5 +99,28 @@ class ApplicationTests {
 				+ "name=geanta"))
 			.andExpect(jsonPath("$.name", comparesEqualTo("geanta")))
 			.andExpect(jsonPath("$.price", comparesEqualTo(300.0)));
+	}
+	
+	//accounts tests
+	@Test
+	@Order(5)
+	@WithMockUser(roles= {"ADMIN"})
+	void add_acount() throws Exception{
+		
+		this.mockMvc.perform(get("http://localhost:8080/add-account?"
+				+ "username=usr1&"
+				+ "password=usr1&"
+				+ "role=USER"))
+				.andExpect(content().string(containsString("usr1 exist in InMemoryUserDetailsManager")));
+	}
+
+	@Test
+	@Order(6)
+	@WithMockUser(roles= {"ADMIN"})
+	void remove_acount() throws Exception{
+		
+		this.mockMvc.perform(get("http://localhost:8080/remove-account?"
+				+ "username=usr1"))
+				.andExpect(content().string(containsString("user removed")));
 	}
 }
