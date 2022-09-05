@@ -1,2 +1,13 @@
-#create maven project
-	mvn archetype:generate -DgroupId=com.ing.app -DartifactId=store-mgt -DarchetypeArtifactId=maven-archetype-quickstart -DarchetypeVersion=1.4 -DinteractiveMode=false
+This progect is consisted from 6 classes:
+	Application - the `main` calss wich contains the main `ApplicationContext` and the endpoints
+	Store - the class wich contains most of the data about the store and and the controlers used in the Application endpints
+	Accounts - the class wich represents the structure of an account
+	Product - the class wich contains the structure of a product
+	SecurityConfig - the class wich contains the security filter wich restricts the access of some endpoints and the 2 default accounts
+	ApplicationsTests - this class contains a bunch of tests(unit/integration) wich helps in the process of development by preventing regersions and shortens the testing time
+
+#requests for manual test
+	///http://localhost:8080/add-product?name=pantofi&weight=2&price=10&description=O%20pereche%20de%20pantofi%20portocali%20de%20excep%C5%A3ie
+	//http://localhost:8080/add-product?name=geanta&weight=1&price=100&description=Geanta%20abibas!@SpringBootApplication
+	//localhost:8080/add-account?username=usr1&password=usr1&role=USER
+
