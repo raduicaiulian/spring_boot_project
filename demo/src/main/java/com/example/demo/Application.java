@@ -6,6 +6,7 @@ import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+//import org.springframework.context.ConfigurableApplicationContext;
 ///http://localhost:8080/add-product?name=pantofi&weight=2&price=10&description=O%20pereche%20de%20pantofi%20portocali%20de%20excep%C5%A3ie
 //http://localhost:8080/add-product?name=geanta&weight=1&price=100&description=Geanta%20abibas!@SpringBootApplication
 @SpringBootApplication
@@ -15,6 +16,9 @@ public class Application {
 	
 	public static void main(String[] args) {
 		SpringApplication.run(Application.class, args);
+//		ConfigurableApplicationContext apc = SpringApplication.run(Application.class, args);
+//		for(String s:apc.getBeanDefinitionNames())
+//			System.out.println(s);
 	}
 	
 	@GetMapping("/")
@@ -63,7 +67,28 @@ public class Application {
 			return String.format("Price changed!");
 		return String.format("Product not found!");
     }
-
+	
+	//Account
+	//localhost:8080/add-account?username=usr1&password=usr1&role=USER
+	@GetMapping("/add-account")
+	public String addAccount(@RequestParam(value = "username") String username,
+			@RequestParam(value = "password") String password,
+			@RequestParam(value = "role") String role) {
+		return s.registerAccount(username, password, role);
+	}
+	
+	//localhost:8080/remove-account?username=usr1
+	@GetMapping("/remove-account")
+	public String removeAccount(@RequestParam(value = "username") String username) {
+		System.out.println(username);
+		return s.unregisterAccount(username);
+	}
+	
+	@GetMapping("/list-accounts")
+	public List<Account> listAccount() {
+		return s.accounts;
+	}
+	
 	@GetMapping("/error")
     public String error() {
 			return String.format(":(");

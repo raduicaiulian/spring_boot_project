@@ -1,14 +1,20 @@
 package com.example.demo;
 
-public class Acount {
+public class Account {
 	private String username;
 	private String password;
-	private String type;//admin/user
+	private String role;//admin/user
 	
-	public void Acount() {
+	public Account() {
 		this.username="user";
 		this.password="user";
-		this.type="user";	
+		this.role="user";	
+	}
+	
+	public Account(String username, String password, String role) {
+		this.username=username;
+		this.password=password;
+		this.role=role;	
 	}
 
 	public String getUsername() {
@@ -27,15 +33,12 @@ public class Acount {
 		this.password = password;
 	}
 
-	public String getType() {
-		return type;
+	public String getRole() {
+		return role;
 	}
 
-	public void setType(String type) {
-		this.type = type;
+	public void setRole(String role) {
+		this.role = role;
 	}
 	
-	
-
 }
-
